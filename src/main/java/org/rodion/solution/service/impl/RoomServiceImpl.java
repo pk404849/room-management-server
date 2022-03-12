@@ -1,6 +1,7 @@
 package org.rodion.solution.service.impl;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.rodion.solution.entity.Room;
 import org.rodion.solution.repository.RoomRepository;
@@ -13,7 +14,7 @@ public class RoomServiceImpl implements RoomService {
 
 	@Autowired
 	private RoomRepository roomRepository;
-	
+
 	@Override
 	public Room addRoom(Room room) {
 		return roomRepository.save(room);
@@ -38,6 +39,12 @@ public class RoomServiceImpl implements RoomService {
 	public Boolean deleteRoomById(Integer roomId) {
 		roomRepository.deleteById(roomId);
 		return true;
+	}
+
+	@Override
+	public List<Room> findAllRoomWithNullFacility() {
+		List<Room> roomList = roomRepository.findAll();
+		return roomList.stream().filter(r -> r.getFacility() == null).collect(Collectors.toList());
 	}
 
 }

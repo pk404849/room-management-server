@@ -5,9 +5,9 @@ import java.math.BigDecimal;
 public class RoomModel {
 
 	private Integer id;
-	private String floor;
+	private Integer floorNumber;
 	private Integer roomNumber;
-	private Boolean isBooked;
+	private String isBooked;
 	private String roomType;
 	private BigDecimal roomFare;
 	private Integer facilityId;
@@ -20,12 +20,12 @@ public class RoomModel {
 		this.id = id;
 	}
 
-	public String getFloor() {
-		return floor;
+	public Integer getFloorNumber() {
+		return floorNumber;
 	}
 
-	public void setFloor(String floor) {
-		this.floor = floor;
+	public void setFloorNumber(Integer floorNumber) {
+		this.floorNumber = floorNumber;
 	}
 
 	public Integer getRoomNumber() {
@@ -36,11 +36,11 @@ public class RoomModel {
 		this.roomNumber = roomNumber;
 	}
 
-	public Boolean getIsBooked() {
+	public String getIsBooked() {
 		return isBooked;
 	}
 
-	public void setIsBooked(Boolean isBooked) {
+	public void setIsBooked(String isBooked) {
 		this.isBooked = isBooked;
 	}
 

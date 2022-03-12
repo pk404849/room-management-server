@@ -27,8 +27,8 @@ public class Room implements Serializable {
 	@Column(name = "ID")
 	private Integer id;
 
-	@Column(name = "FLOOR")
-	private String floor;
+	@Column(name = "FLOOR_NUMBER")
+	private Integer floorNumber;
 
 	@Column(name = "ROOM_NUMBER")
 	private Integer roomNumber;
@@ -57,12 +57,12 @@ public class Room implements Serializable {
 		this.id = id;
 	}
 
-	public String getFloor() {
-		return floor;
+	public Integer getFloorNumber() {
+		return floorNumber;
 	}
 
-	public void setFloor(String floor) {
-		this.floor = floor;
+	public void setFloorNumber(Integer floorNumber) {
+		this.floorNumber = floorNumber;
 	}
 
 	public Integer getRoomNumber() {

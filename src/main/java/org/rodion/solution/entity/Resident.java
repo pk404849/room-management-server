@@ -51,7 +51,7 @@ public class Resident implements Serializable{
 	private LocalDateTime checkOutTime;
 	
 	@ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "resident_resident",
+    @JoinTable(name = "resident_room",
         joinColumns = @JoinColumn(name = "resident_id", referencedColumnName = "id"),
         inverseJoinColumns = @JoinColumn(name = "room_id", referencedColumnName = "id"))
 	private List<Room> roomList;

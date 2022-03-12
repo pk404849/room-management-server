@@ -52,6 +52,9 @@ public class Facility implements Serializable {
 	
 	@Transient
 	private List<Integer> roomIdList;
+	
+	@Transient
+	private Integer roomId;
 
 	public Integer getId() {
 		return id;
@@ -131,6 +134,14 @@ public class Facility implements Serializable {
 
 	public void setRoomIdList(List<Integer> roomIdList) {
 		this.roomIdList = roomIdList;
+	}
+
+	public Integer getRoomId() {
+		return roomId;
+	}
+
+	public void setRoomId(Integer roomId) {
+		this.roomId = roomId;
 	}
 
 	public void addRoom(Room room) {

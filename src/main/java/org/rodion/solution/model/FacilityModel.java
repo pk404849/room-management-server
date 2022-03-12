@@ -5,14 +5,16 @@ import java.util.List;
 public class FacilityModel {
 
 	private Integer id;
-	private Integer bedRoom;
-	private Boolean hasTV;
-	private Boolean hasWIFI;
-	private Boolean hasGizer;
-	private Boolean hasPhone;
-	private Boolean hasLift;
-	private Boolean hasAC;
+	// private Integer bedRoom;
+	private String hasTV;
+	private String hasWIFI;
+	private String hasGizer;
+	private String hasPhone;
+	private String hasLift;
+	private String hasAC;
 	private List<Integer> roomIdList;
+	private Integer roomId;
+	private Integer roomNumber;
 
 	public Integer getId() {
 		return id;
@@ -22,59 +24,59 @@ public class FacilityModel {
 		this.id = id;
 	}
 
-	public Integer getBedRoom() {
-		return bedRoom;
-	}
+//	public Integer getBedRoom() {
+//		return bedRoom;
+//	}
+//
+//	public void setBedRoom(Integer bedRoom) {
+//		this.bedRoom = bedRoom;
+//	}
 
-	public void setBedRoom(Integer bedRoom) {
-		this.bedRoom = bedRoom;
-	}
-
-	public Boolean getHasTV() {
+	public String getHasTV() {
 		return hasTV;
 	}
 
-	public void setHasTV(Boolean hasTV) {
+	public void setHasTV(String hasTV) {
 		this.hasTV = hasTV;
 	}
 
-	public Boolean getHasWIFI() {
+	public String getHasWIFI() {
 		return hasWIFI;
 	}
 
-	public void setHasWIFI(Boolean hasWIFI) {
+	public void setHasWIFI(String hasWIFI) {
 		this.hasWIFI = hasWIFI;
 	}
 
-	public Boolean getHasGizer() {
+	public String getHasGizer() {
 		return hasGizer;
 	}
 
-	public void setHasGizer(Boolean hasGizer) {
+	public void setHasGizer(String hasGizer) {
 		this.hasGizer = hasGizer;
 	}
 
-	public Boolean getHasPhone() {
+	public String getHasPhone() {
 		return hasPhone;
 	}
 
-	public void setHasPhone(Boolean hasPhone) {
+	public void setHasPhone(String hasPhone) {
 		this.hasPhone = hasPhone;
 	}
 
-	public Boolean getHasLift() {
+	public String getHasLift() {
 		return hasLift;
 	}
 
-	public void setHasLift(Boolean hasLift) {
+	public void setHasLift(String hasLift) {
 		this.hasLift = hasLift;
 	}
 
-	public Boolean getHasAC() {
+	public String getHasAC() {
 		return hasAC;
 	}
 
-	public void setHasAC(Boolean hasAC) {
+	public void setHasAC(String hasAC) {
 		this.hasAC = hasAC;
 	}
 
@@ -84,6 +86,22 @@ public class FacilityModel {
 
 	public void setRoomIdList(List<Integer> roomIdList) {
 		this.roomIdList = roomIdList;
+	}
+
+	public Integer getRoomId() {
+		return roomId;
+	}
+
+	public void setRoomId(Integer roomId) {
+		this.roomId = roomId;
+	}
+
+	public Integer getRoomNumber() {
+		return roomNumber;
+	}
+
+	public void setRoomNumber(Integer roomNumber) {
+		this.roomNumber = roomNumber;
 	}
 
 }

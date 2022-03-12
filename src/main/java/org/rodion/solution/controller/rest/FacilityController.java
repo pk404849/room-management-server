@@ -10,6 +10,7 @@ import org.rodion.solution.service.FacilityService;
 import org.rodion.solution.util.ApiConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(value = "/facility")
+@CrossOrigin(value = "http://localhost:4200")
 public class FacilityController extends BaseController {
 
 	@Autowired
@@ -31,7 +33,7 @@ public class FacilityController extends BaseController {
 		Facility facility = ApiConverter.getFacilityJpaObject(facilityModel);
 		facilityService.addFacility(facility);
 		responseMessage.setStatus(true);
-		if (facilityModel.getId() == 0) {
+		if (facilityModel.getId() == null || facilityModel.getId() == 0) {
 			responseMessage.setMessage("Facility added successfully.");
 		} else {
 			responseMessage.setMessage("Facility updated successfully.");
@@ -75,4 +77,5 @@ public class FacilityController extends BaseController {
 		}
 		return sendResponse(responseMessage);
 	}
+
 }

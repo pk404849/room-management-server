@@ -15,4 +15,6 @@ public interface RoomService {
 	public List<Room> findAllRoom();
 
 	public Boolean deleteRoomById(Integer roomId);
+
+	public List<Room> findAllRoomWithNullFacility();
 }

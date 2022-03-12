@@ -17,8 +17,12 @@ public class ApiConverter {
 		if (roomModel != null) {
 			Room room = new Room();
 			room.setId(roomModel.getId());
-			room.setFloor(roomModel.getFloor());
-			room.setIsBooked(roomModel.getIsBooked());
+			room.setFloorNumber(roomModel.getFloorNumber());
+			if("yes".equalsIgnoreCase(roomModel.getIsBooked())) {
+				room.setIsBooked(true);
+			}else {
+				room.setIsBooked(false);
+			}
 			room.setRoomFare(roomModel.getRoomFare());
 			room.setRoomType(roomModel.getRoomType());
 			room.setRoomNumber(roomModel.getRoomNumber());
@@ -40,11 +44,19 @@ public class ApiConverter {
 		if (room != null) {
 			RoomModel roomModel = new RoomModel();
 			roomModel.setId(room.getId());
-			roomModel.setFloor(room.getFloor());
-			roomModel.setIsBooked(room.getIsBooked());
+			roomModel.setFloorNumber(room.getFloorNumber());
+			if(room.getIsBooked()) {
+				roomModel.setIsBooked("Yes");
+			}else {
+				roomModel.setIsBooked("No");
+			}
 			roomModel.setRoomFare(room.getRoomFare());
 			roomModel.setRoomType(room.getRoomType());
 			roomModel.setRoomNumber(room.getRoomNumber());
+			Facility facility = room.getFacility();
+			if(facility != null) {
+				roomModel.setFacilityId(facility.getId());
+			}
 			return roomModel;
 		}
 		return null;
@@ -116,14 +128,40 @@ public class ApiConverter {
 		if (facilityModel != null) {
 			Facility facility = new Facility();
 			facility.setId(facilityModel.getId());
-			facility.setBedRoom(facilityModel.getBedRoom());
-			facility.setHasGizer(facilityModel.getHasGizer());
-			facility.setHasLift(facilityModel.getHasLift());
-			facility.setHasPhone(facilityModel.getHasPhone());
-			facility.setHasTV(facilityModel.getHasTV());
-			facility.setHasWIFI(facilityModel.getHasWIFI());
-			facility.setHasAC(facilityModel.getHasAC());
+			//facility.setBedRoom(facilityModel.getBedRoom());
+			if ("yes".equalsIgnoreCase(facilityModel.getHasGizer())) {
+				facility.setHasGizer(true);
+			} else {
+				facility.setHasGizer(false);
+			}
+
+			if ("yes".equalsIgnoreCase(facilityModel.getHasLift())) {
+				facility.setHasLift(true);
+			} else {
+				facility.setHasLift(false);
+			}
+			if ("yes".equalsIgnoreCase(facilityModel.getHasPhone())) {
+				facility.setHasPhone(true);
+			} else {
+				facility.setHasPhone(false);
+			}
+			if ("yes".equalsIgnoreCase(facilityModel.getHasTV())) {
+				facility.setHasTV(true);
+			} else {
+				facility.setHasTV(false);
+			}
+			if ("yes".equalsIgnoreCase(facilityModel.getHasWIFI())) {
+				facility.setHasWIFI(true);
+			} else {
+				facility.setHasWIFI(false);
+			}
+			if ("yes".equalsIgnoreCase(facilityModel.getHasAC())) {
+				facility.setHasAC(true);
+			} else {
+				facility.setHasAC(false);
+			}
 			facility.setRoomIdList(facilityModel.getRoomIdList());
+			facility.setRoomId(facilityModel.getRoomId());
 			return facility;
 		}
 		return null;
@@ -133,12 +171,42 @@ public class ApiConverter {
 		if (facility != null) {
 			FacilityModel facilityModel = new FacilityModel();
 			facilityModel.setId(facility.getId());
-			facilityModel.setBedRoom(facility.getBedRoom());
-			facilityModel.setHasGizer(facility.getHasGizer());
-			facilityModel.setHasLift(facility.getHasLift());
-			facilityModel.setHasPhone(facility.getHasPhone());
-			facilityModel.setHasTV(facility.getHasTV());
-			facilityModel.setHasWIFI(facility.getHasWIFI());
+			//facilityModel.setBedRoom(facility.getBedRoom());
+			if (facility.getHasGizer()) {
+				facilityModel.setHasGizer("Yes");
+			} else {
+				facilityModel.setHasGizer("No");
+			}
+			if (facility.getHasLift()) {
+				facilityModel.setHasLift("Yes");
+			} else {
+				facilityModel.setHasLift("No");
+			}
+			if (facility.getHasPhone()) {
+				facilityModel.setHasPhone("Yes");
+			} else {
+				facilityModel.setHasPhone("No");
+			}
+			if (facility.getHasTV()) {
+				facilityModel.setHasTV("Yes");
+			} else {
+				facilityModel.setHasTV("No");
+			}
+			if (facility.getHasWIFI()) {
+				facilityModel.setHasWIFI("Yes");
+			} else {
+				facilityModel.setHasWIFI("No");
+			}
+			
+			if (facility.getHasAC()) {
+				facilityModel.setHasAC("Yes");
+			} else {
+				facilityModel.setHasAC("No");
+			}
+			List<Room> roomList = facility.getRoomList();
+			if(roomList != null && !roomList.isEmpty()) {
+				facilityModel.setRoomNumber(roomList.get(0).getRoomNumber());
+			}
 			return facilityModel;
 		}
 		return null;

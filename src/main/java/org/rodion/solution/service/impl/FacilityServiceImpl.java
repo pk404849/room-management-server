@@ -27,6 +27,8 @@ public class FacilityServiceImpl implements FacilityService{
 				Room room = roomRepository.getRoomById(roomId);
 				facility.addRoom(room);
 			}
+		}else {
+			facility.addRoom(roomRepository.getRoomById(facility.getRoomId()));
 		}
 		return facilityRepository.save(facility);
 	}

@@ -9,4 +9,5 @@ public interface RoomRepository extends JpaRepository<Room, Integer> {
 
 	@Query("SELECT * FROM ROOM r WHERE r.id := roomId")
 	public Room getRoomById(@Param(value = "roomId") Integer roomId);
+
 }

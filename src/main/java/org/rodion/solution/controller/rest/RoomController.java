@@ -10,6 +10,7 @@ import org.rodion.solution.service.RoomService;
 import org.rodion.solution.util.ApiConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(value = "/room")
+@CrossOrigin(value = "http://localhost:4200")
 public class RoomController extends BaseController {
 
 	@Autowired
@@ -30,7 +32,7 @@ public class RoomController extends BaseController {
 		Room room = ApiConverter.getRoomJpaObject(roomModel);
 		roomService.addRoom(room);
 		responseMessage.setStatus(true);
-		if (roomModel.getId() == 0) {
+		if (roomModel.getId() == null || roomModel.getId() == 0) {
 			responseMessage.setMessage("Room added successfully.");
 		} else {
 			responseMessage.setMessage("Room updated successfully.");
@@ -71,6 +73,18 @@ public class RoomController extends BaseController {
 			responseMessage.setMessage("Room deleted successfully.");
 		}
 		responseMessage.setStatus(true);
+		return sendResponse(responseMessage);
+	}
+	
+	@GetMapping(value = "/find-all-room-with-null-facility")
+	public ResponseEntity<?> findAllRoomWithNullFacility() {
+		ResponseMessage responseMessage = new ResponseMessage();
+		List<Room> roomList = roomService.findAllRoomWithNullFacility();
+		responseMessage.setStatus(true);
+		if (roomList != null && !roomList.isEmpty()) {
+			List<RoomModel> roomModelList = ApiConverter.getAllRoomModelObject(roomList);
+			responseMessage.setData(roomModelList);
+		}
 		return sendResponse(responseMessage);
 	}
 
