@@ -17,7 +17,7 @@ public class Test {
 		LocalDateTime now = LocalDateTime.now();
 		String format = now.format(formatter1);
 		System.out.println(format);
-		now.fo
+		//now.fo
 	
 
 	}
