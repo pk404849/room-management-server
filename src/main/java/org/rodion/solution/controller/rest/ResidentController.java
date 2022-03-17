@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(value = "/resident")
-@CrossOrigin(value = "http://localhost:4200")
+@CrossOrigin(value = "https://room-management-ui.herokuapp.com")
 public class ResidentController extends BaseController {
 
 	@Autowired
