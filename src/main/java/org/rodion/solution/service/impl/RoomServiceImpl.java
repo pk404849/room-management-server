@@ -47,4 +47,9 @@ public class RoomServiceImpl implements RoomService {
 		return roomList.stream().filter(r -> r.getFacility() == null).collect(Collectors.toList());
 	}
 
+	@Override
+	public List<Room> findAllWithoutBookedRoom() {
+		return roomRepository.findByIsBooked(false);
+	}
+
 }

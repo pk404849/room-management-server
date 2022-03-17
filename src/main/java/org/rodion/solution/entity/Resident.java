@@ -8,6 +8,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,11 +18,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.hibernate.annotations.CreationTimestamp;
-
 @Entity
 @Table(name = "RESIDENT")
-public class Resident implements Serializable{
+public class Resident implements Serializable {
 
 	private static final long serialVersionUID = -7121393151190460613L;
 
@@ -42,22 +41,24 @@ public class Resident implements Serializable{
 	@Column(name = "RESIDENT_PHONE_NUMBER")
 	private String residentPhoneNo;
 
-	@CreationTimestamp
-    @Column(name = "CHECK_IN_TIME", updatable = false)
+	@Column(name = "CHECK_IN_TIME", updatable = false)
 	private LocalDateTime checkinTime;
 
-	@CreationTimestamp
-    @Column(name = "CHECK_OUT_TIME", updatable = true, insertable=false)
+	@Column(name = "CHECK_OUT_TIME", updatable = true, insertable = false)
 	private LocalDateTime checkOutTime;
-	
-	@ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "resident_room",
-        joinColumns = @JoinColumn(name = "resident_id", referencedColumnName = "id"),
-        inverseJoinColumns = @JoinColumn(name = "room_id", referencedColumnName = "id"))
+
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinTable(name = "resident_room", joinColumns = @JoinColumn(name = "resident_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "room_id", referencedColumnName = "id"))
 	private List<Room> roomList;
 	
+	@Column(name = "BOOKED_DATE")
+	private LocalDateTime bookedDateTime;
+
 	@Transient
 	private List<Integer> roomIdList;
+
+	@Transient
+	private Integer roomId;
 
 	public Integer getId() {
 		return id;
@@ -106,7 +107,7 @@ public class Resident implements Serializable{
 	public void setRoomList(List<Room> roomList) {
 		this.roomList = roomList;
 	}
-	
+
 	public List<Integer> getRoomIdList() {
 		return roomIdList;
 	}
@@ -130,7 +131,23 @@ public class Resident implements Serializable{
 	public void setCheckOutTime(LocalDateTime checkOutTime) {
 		this.checkOutTime = checkOutTime;
 	}
-	
+
+	public Integer getRoomId() {
+		return roomId;
+	}
+
+	public void setRoomId(Integer roomId) {
+		this.roomId = roomId;
+	}
+
+	public LocalDateTime getBookedDateTime() {
+		return bookedDateTime;
+	}
+
+	public void setBookedDateTime(LocalDateTime bookedDateTime) {
+		this.bookedDateTime = bookedDateTime;
+	}
+
 	public void addRoom(Room room) {
 
 		if (roomList == null || roomList.isEmpty()) {

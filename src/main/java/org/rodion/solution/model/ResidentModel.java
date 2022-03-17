@@ -1,6 +1,5 @@
 package org.rodion.solution.model;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 public class ResidentModel {
@@ -9,9 +8,13 @@ public class ResidentModel {
 	private String residentName;;
 	private String residentAddress;
 	private String residentPhoneNo;
-	private LocalDateTime checkInTime;
-	private LocalDateTime checkOutTime;
+	private String checkInTime;
+	private String checkOutTime;
 	private List<Integer> roomIdList;
+	private Integer roomId;
+	private String bookedDateTime;
+	private String roomType;
+	private Integer roomNumber;
 
 	public Integer getId() {
 		return id;
@@ -53,19 +56,19 @@ public class ResidentModel {
 		this.residentPhoneNo = residentPhoneNo;
 	}
 
-	public LocalDateTime getCheckInTime() {
+	public String getCheckInTime() {
 		return checkInTime;
 	}
 
-	public void setCheckInTime(LocalDateTime checkInTime) {
+	public void setCheckInTime(String checkInTime) {
 		this.checkInTime = checkInTime;
 	}
 
-	public LocalDateTime getCheckOutTime() {
+	public String getCheckOutTime() {
 		return checkOutTime;
 	}
 
-	public void setCheckOutTime(LocalDateTime checkOutTime) {
+	public void setCheckOutTime(String checkOutTime) {
 		this.checkOutTime = checkOutTime;
 	}
 
@@ -75,6 +78,38 @@ public class ResidentModel {
 
 	public void setRoomIdList(List<Integer> roomIdList) {
 		this.roomIdList = roomIdList;
+	}
+
+	public Integer getRoomId() {
+		return roomId;
+	}
+
+	public void setRoomId(Integer roomId) {
+		this.roomId = roomId;
+	}
+
+	public String getBookedDateTime() {
+		return bookedDateTime;
+	}
+
+	public void setBookedDateTime(String bookedDateTime) {
+		this.bookedDateTime = bookedDateTime;
+	}
+
+	public String getRoomType() {
+		return roomType;
+	}
+
+	public void setRoomType(String roomType) {
+		this.roomType = roomType;
+	}
+
+	public Integer getRoomNumber() {
+		return roomNumber;
+	}
+
+	public void setRoomNumber(Integer roomNumber) {
+		this.roomNumber = roomNumber;
 	}
 
 }

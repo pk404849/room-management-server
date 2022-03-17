@@ -23,13 +23,18 @@ public class ResidentServiceImpl implements ResidentService {
 	@Override
 	public Resident addResident(Resident resident) {
 		List<Integer> roomIdList = resident.getRoomIdList();
+		List<Room> roomList = new ArrayList<Room>();
 		if(roomIdList != null && !roomIdList.isEmpty()) {
-			List<Room> roomList = new ArrayList<Room>();
 			for(Integer roomId : roomIdList) {
 				Room room = roomRepository.getRoomById(roomId);
 				room.setIsBooked(true);
 				roomList.add(room);
 			}
+			resident.setRoomList(roomList);
+		}else {
+			Room room = roomRepository.getRoomById(resident.getRoomId());
+			room.setIsBooked(true);
+			roomList.add(room);
 			resident.setRoomList(roomList);
 		}
 		return residentRepository.save(resident);

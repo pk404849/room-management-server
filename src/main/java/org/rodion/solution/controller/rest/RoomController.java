@@ -87,5 +87,17 @@ public class RoomController extends BaseController {
 		}
 		return sendResponse(responseMessage);
 	}
+	
+	@GetMapping(value = "/find-all-without-booked-room")
+	public ResponseEntity<?> findAllWithoutBookedRoom() {
+		ResponseMessage responseMessage = new ResponseMessage();
+		List<Room> roomList = roomService.findAllWithoutBookedRoom();
+		responseMessage.setStatus(true);
+		if (roomList != null && !roomList.isEmpty()) {
+			List<RoomModel> roomModelList = ApiConverter.getAllRoomModelObject(roomList);
+			responseMessage.setData(roomModelList);
+		}
+		return sendResponse(responseMessage);
+	}
 
 }

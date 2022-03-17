@@ -1,5 +1,6 @@
 package org.rodion.solution.util;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,9 +19,9 @@ public class ApiConverter {
 			Room room = new Room();
 			room.setId(roomModel.getId());
 			room.setFloorNumber(roomModel.getFloorNumber());
-			if("yes".equalsIgnoreCase(roomModel.getIsBooked())) {
+			if ("yes".equalsIgnoreCase(roomModel.getIsBooked())) {
 				room.setIsBooked(true);
-			}else {
+			} else {
 				room.setIsBooked(false);
 			}
 			room.setRoomFare(roomModel.getRoomFare());
@@ -45,16 +46,16 @@ public class ApiConverter {
 			RoomModel roomModel = new RoomModel();
 			roomModel.setId(room.getId());
 			roomModel.setFloorNumber(room.getFloorNumber());
-			if(room.getIsBooked()) {
+			if (room.getIsBooked()) {
 				roomModel.setIsBooked("Yes");
-			}else {
+			} else {
 				roomModel.setIsBooked("No");
 			}
 			roomModel.setRoomFare(room.getRoomFare());
 			roomModel.setRoomType(room.getRoomType());
 			roomModel.setRoomNumber(room.getRoomNumber());
 			Facility facility = room.getFacility();
-			if(facility != null) {
+			if (facility != null) {
 				roomModel.setFacilityId(facility.getId());
 			}
 			return roomModel;
@@ -83,9 +84,16 @@ public class ApiConverter {
 			resident.setResidentIdProof(residentModel.getResidentIdProof());
 			resident.setResidentName(residentModel.getResidentName());
 			resident.setResidentPhoneNo(residentModel.getResidentPhoneNo());
-			resident.setCheckinTime(residentModel.getCheckInTime());
-			resident.setCheckOutTime(residentModel.getCheckOutTime());
+			String checkInTime = residentModel.getCheckInTime();
+			if (checkInTime != null && !checkInTime.isEmpty()) {
+				LocalDateTime localDateTime = Util.strToDateTime(checkInTime);
+				resident.setCheckinTime(localDateTime);
+			}
 			resident.setRoomIdList(residentModel.getRoomIdList());
+			resident.setRoomId(residentModel.getRoomId());
+			if(residentModel.getId() == null || residentModel.getId() == 0) {
+				resident.setBookedDateTime(LocalDateTime.now());
+			}
 			return resident;
 		}
 		return null;
@@ -106,6 +114,19 @@ public class ApiConverter {
 			residentModel.setResidentIdProof(resident.getResidentIdProof());
 			residentModel.setResidentName(resident.getResidentName());
 			residentModel.setResidentPhoneNo(resident.getResidentPhoneNo());
+			List<Room> roomList = resident.getRoomList();
+			if(roomList != null && !roomList.isEmpty()) {
+				for(Room room: roomList) {
+					residentModel.setRoomId(room.getId());
+					residentModel.setRoomType(room.getRoomType());
+					residentModel.setRoomNumber(room.getRoomNumber());
+				}
+			}
+			LocalDateTime bookedDateTime = resident.getBookedDateTime();
+			if(bookedDateTime != null) {
+				residentModel.setBookedDateTime(bookedDateTime.toString());
+			}
+			
 			return residentModel;
 		}
 		return null;
@@ -128,7 +149,7 @@ public class ApiConverter {
 		if (facilityModel != null) {
 			Facility facility = new Facility();
 			facility.setId(facilityModel.getId());
-			//facility.setBedRoom(facilityModel.getBedRoom());
+			// facility.setBedRoom(facilityModel.getBedRoom());
 			if ("yes".equalsIgnoreCase(facilityModel.getHasGizer())) {
 				facility.setHasGizer(true);
 			} else {
@@ -171,7 +192,7 @@ public class ApiConverter {
 		if (facility != null) {
 			FacilityModel facilityModel = new FacilityModel();
 			facilityModel.setId(facility.getId());
-			//facilityModel.setBedRoom(facility.getBedRoom());
+			// facilityModel.setBedRoom(facility.getBedRoom());
 			if (facility.getHasGizer()) {
 				facilityModel.setHasGizer("Yes");
 			} else {
@@ -197,14 +218,14 @@ public class ApiConverter {
 			} else {
 				facilityModel.setHasWIFI("No");
 			}
-			
+
 			if (facility.getHasAC()) {
 				facilityModel.setHasAC("Yes");
 			} else {
 				facilityModel.setHasAC("No");
 			}
 			List<Room> roomList = facility.getRoomList();
-			if(roomList != null && !roomList.isEmpty()) {
+			if (roomList != null && !roomList.isEmpty()) {
 				facilityModel.setRoomNumber(roomList.get(0).getRoomNumber());
 			}
 			return facilityModel;
