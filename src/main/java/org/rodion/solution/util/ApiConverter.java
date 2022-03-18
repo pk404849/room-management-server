@@ -93,6 +93,7 @@ public class ApiConverter {
 			resident.setRoomId(residentModel.getRoomId());
 			if(residentModel.getId() == null || residentModel.getId() == 0) {
 				resident.setBookedDateTime(LocalDateTime.now());
+				resident.setCheckinTime(LocalDateTime.now());
 			}
 			return resident;
 		}
@@ -126,7 +127,14 @@ public class ApiConverter {
 			if(bookedDateTime != null) {
 				residentModel.setBookedDateTime(bookedDateTime.toString());
 			}
-			
+			LocalDateTime checkinTime = resident.getCheckinTime();
+			if(checkinTime != null) {
+				residentModel.setCheckInTime(checkinTime.toString());
+			}
+			 LocalDateTime checkOutTime = resident.getCheckOutTime();
+			 if(checkOutTime != null) {
+				 residentModel.setCheckOutTime(checkOutTime.toString());
+			 }
 			return residentModel;
 		}
 		return null;

@@ -54,6 +54,8 @@ public class Resident implements Serializable {
 	@Column(name = "BOOKED_DATE")
 	private LocalDateTime bookedDateTime;
 
+	@Column(name = "DAY_COUNT")
+	private String dayCount;
 	@Transient
 	private List<Integer> roomIdList;
 
@@ -146,6 +148,14 @@ public class Resident implements Serializable {
 
 	public void setBookedDateTime(LocalDateTime bookedDateTime) {
 		this.bookedDateTime = bookedDateTime;
+	}
+
+	public String getDayCount() {
+		return dayCount;
+	}
+
+	public void setDayCount(String dayCount) {
+		this.dayCount = dayCount;
 	}
 
 	public void addRoom(Room room) {

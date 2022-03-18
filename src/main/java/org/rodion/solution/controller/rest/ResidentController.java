@@ -8,6 +8,7 @@ import org.rodion.solution.entity.Resident;
 import org.rodion.solution.model.ResidentModel;
 import org.rodion.solution.service.ResidentService;
 import org.rodion.solution.util.ApiConverter;
+import org.rodion.solution.util.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -20,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(value = "/resident")
-@CrossOrigin(value = "https://room-management-ui.herokuapp.com")
+@CrossOrigin(value = Constant.uiBaseUrl)
 public class ResidentController extends BaseController {
 
 	@Autowired
@@ -77,5 +78,17 @@ public class ResidentController extends BaseController {
 		}
 		return sendResponse(responseMessage);
 	}
+	
+	@GetMapping(value = "/check-out-resident/{residentId}")
+	public ResponseEntity<?> checkOutResidentById(@PathVariable("residentId") Integer residentId) {
+		ResponseMessage responseMessage = new ResponseMessage();
+		Boolean isDeleted = residentService.checkOutResidentById(residentId);
+		responseMessage.setStatus(true);
+		if (isDeleted) {
+			responseMessage.setMessage("Resident check out successfully.");
+		}
+		return sendResponse(responseMessage);
+	}
+	
 
 }

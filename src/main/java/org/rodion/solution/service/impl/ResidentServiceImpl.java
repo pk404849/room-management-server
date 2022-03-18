@@ -1,5 +1,7 @@
 package org.rodion.solution.service.impl;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,6 +60,30 @@ public class ResidentServiceImpl implements ResidentService {
 	@Override
 	public Boolean deleteResidentById(Integer residentId) {
 		residentRepository.deleteById(residentId);
+		return true;
+	}
+
+	@Override
+	public Boolean checkOutResidentById(Integer residentId) {
+		Resident resident = residentRepository.getResidentById(residentId);
+		if(resident != null) {
+			resident.setCheckOutTime(LocalDateTime.now());
+			List<Room> roomList = resident.getRoomList();
+			if(roomList != null && !roomList.isEmpty()) {
+				Room room = roomList.get(0);
+				room.setIsBooked(false);
+				resident.addRoom(room);
+			}
+			LocalDateTime checkinTime = resident.getCheckinTime();
+			LocalDateTime checkOutTime = LocalDateTime.now();
+			Duration duration = Duration.between(checkinTime, checkOutTime);
+			long days = duration.toDays();
+			
+			String totalDayCount = days + " Days";
+			resident.setDayCount(totalDayCount);
+			
+			residentRepository.save(resident);
+		}
 		return true;
 	}
 

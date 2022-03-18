@@ -15,4 +15,6 @@ public interface ResidentService {
 	public List<Resident> findAllResident();
 
 	public Boolean deleteResidentById(Integer residentId);
+
+	public Boolean checkOutResidentById(Integer residentId);
 }
